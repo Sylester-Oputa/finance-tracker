@@ -22,11 +22,7 @@ const ExpenseTransactions = ({ transactions, onSeeMore }) => {
                 key={expense._id || expense.id}
                 title={expense.category}
                 icon={expense.icon}
-                date={
-                  expense.date && moment(expense.date).isValid()
-                    ? moment(expense.date).format("Do MMM YYYY")
-                    : "Invalid date"
-                }
+                date={moment(expense.date).format("Do MMM YYYY")}
                 amount={expense.amount}
                 type="expense"
                 hideDeleteBtn

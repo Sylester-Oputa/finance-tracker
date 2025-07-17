@@ -14,7 +14,7 @@ const RecentIncome = ({ transactions, onSeeMore }) => {
       </div>
 
       <div className="mt-6">
-        {transactions && transactions.length > 0 ? (
+        {Array.isArray(transactions) && transactions.length > 0 ? (
           transactions
             .slice(0, 4)
             .map((item) => (

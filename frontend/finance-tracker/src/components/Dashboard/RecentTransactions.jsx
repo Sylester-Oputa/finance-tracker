@@ -11,17 +11,25 @@ const RecentTransactions = ({ transactions }) => {
       </div>
 
       <div className="mt-4">
-        {transactions?.slice(0, 4)?.map((item) => (
-          <TransactionInfoCard
-            key={item._id}
-            title={item.type == "expense" ? item.category : item.source}
-            icon={item.icon}
-            date={moment(item.date).format("Do MMM YYYY")}
-            amount={item.amount}
-            type={item.type}
-            hideDeleteBtn
-          />
-        ))}
+        {Array.isArray(transactions) && transactions.length > 0 ? (
+          transactions
+            .slice(0, 4)
+            .map((item) => (
+              <TransactionInfoCard
+                key={item._id}
+                title={item.type == "expense" ? item.category : item.source}
+                icon={item.icon}
+                date={moment(item.date).format("Do MMM YYYY")}
+                amount={item.amount}
+                type={item.type}
+                hideDeleteBtn
+              />
+            ))
+        ) : (
+          <div className="text-gray-400 text-center py-4">
+            No recent transactions found.
+          </div>
+        )}
       </div>
     </div>
   );
