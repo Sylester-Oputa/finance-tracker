@@ -1,4 +1,4 @@
-export const BASE_URL = "http://localhost:8000";
+export const BASE_URL = "https://finance-tracker-r4fo.onrender.com";
 
 // API Paths
 export const API_PATHS = {
