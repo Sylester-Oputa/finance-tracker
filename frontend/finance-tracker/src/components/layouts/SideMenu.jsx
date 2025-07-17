@@ -30,9 +30,9 @@ const SideMenu = ({ activeMenu }) => {
         {user?.profileImageUrl ? (
           <img
             src={
-              user?.profileImageUrl
-                ? `${import.meta.env.VITE_API_BASE_URL}${user.profileImageUrl}`
-                : ""
+              user?.profileImageUrl?.startsWith("http")
+                ? user.profileImageUrl
+                : `${import.meta.env.VITE_API_BASE_URL}${user.profileImageUrl}`
             }
             alt="Profile Image"
             className="w-20 h-20 bg-slate-400 rounded-full"
