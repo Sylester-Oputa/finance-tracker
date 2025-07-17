@@ -29,7 +29,7 @@ const ExpenseList = ({ onDownload, onDelete, transactions }) => {
               />
             ))
         ) : (
-          <div className="flex flex-col items-center justify-center py-8 text-gray-400">
+          <div className="flex flex-col items-center justify-center h-full w-full py-8 text-gray-400">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="w-16 h-16 mb-4 text-gray-300"
