@@ -4,7 +4,6 @@ import TransactionInfoCard from "../Cards/TransactionInfoCard";
 import moment from "moment";
 
 const ExpenseTransactions = ({ transactions, onSeeMore }) => {
-  console.log("ExpenseTransactions transactions:", transactions);
 
   return (
     <div className="card">

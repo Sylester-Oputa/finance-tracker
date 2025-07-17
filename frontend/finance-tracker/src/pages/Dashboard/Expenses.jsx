@@ -120,8 +120,6 @@ const Expenses = () => {
     fetchExpenseData();
   }, []);
 
-  console.log("ExpenseOverview data:", expenseData);
-
   return (
     <DashboardLayout activeMenu="Expense">
       <div className="my-5 mx-auto">
