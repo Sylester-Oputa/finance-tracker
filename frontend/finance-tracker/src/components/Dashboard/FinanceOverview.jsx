@@ -17,7 +17,7 @@ const FinanceOverview = ({ totalBalance, totalIncome, totalExpense }) => {
       </div>
 
       <div>
-        {Array.isArray(data) && data.length > 0 ? (
+        {Array.isArray(balanceData) && balanceData.length > 0 ? (
           <CustomPieChart
             data={balanceData}
             label="Total Balance"
