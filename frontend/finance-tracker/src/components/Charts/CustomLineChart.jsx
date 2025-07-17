@@ -48,7 +48,7 @@ const CustomLineChart = ({ data }) => {
           </defs>
           <CartesianGrid stroke="none" />
           <XAxis
-            dataKey="month"
+            dataKey="category"
             tick={{ fontSize: 12, fill: "#555" }}
             stroke="none"
           />
