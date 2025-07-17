@@ -27,7 +27,7 @@ const RecentIncomeWithChart = ({ data = [], totalIncome = 0 }) => {
       </div>
 
       <div>
-        {Array.isArray(chartData) && chartData.length > 0 ? (
+        {Array.isArray(data) && data.length > 0 ? (
           <CustomPieChart
             data={chartData}
             label="Total Income"
