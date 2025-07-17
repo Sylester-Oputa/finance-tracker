@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { prepareExpenseBarChartData } from "../../utils/helper";
 import CustomLineChart from "../Charts/CustomLineChart";
 
-const last30DaysExpenses = ({ data }) => {
+const Last30DaysExpenses = ({ data }) => {
   const [chartData, setChartData] = useState([]);
 
   useEffect(() => {
@@ -22,4 +22,4 @@ const last30DaysExpenses = ({ data }) => {
   );
 };
 
-export default last30DaysExpenses;
+export default Last30DaysExpenses;
