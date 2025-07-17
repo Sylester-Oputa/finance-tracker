@@ -16,17 +16,23 @@ const IncomeList = ({ onDownload, onDelete, transactions }) => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2">
-        {transactions.map((income) => (
-          <TransactionInfoCard
-            key={income._id}
-            title={income.source}
-            icon={income.icon}
-            date={moment(income.date).format("Do MMM YYYY")}
-            amount={income.amount}
-            type="income"
-            onDelete={() => onDelete(income._id)}
-          />
-        ))}
+        {Array.isArray(transactions) && transactions.length > 0 ? (
+          transactions
+            .slice(0, 4)
+            .map((income) => (
+              <TransactionInfoCard
+                key={income._id}
+                title={income.source}
+                icon={income.icon}
+                date={moment(income.date).format("Do MMM YYYY")}
+                amount={income.amount}
+                type="income"
+                hideDeleteBtn
+              />
+            ))
+        ) : (
+          <div className="text-gray-400 text-center py-4">No income found.</div>
+        )}
       </div>
     </div>
   );

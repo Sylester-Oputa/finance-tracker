@@ -14,17 +14,25 @@ const ExpenseList = ({ onDownload, onDelete, transactions }) => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2">
-        {transactions.map((expense) => (
-          <TransactionInfoCard
-            key={expense._id}
-            title={expense.category}
-            icon={expense.icon}
-            date={moment(expense.date).format("Do MMM YYYY")}
-            amount={expense.amount}
-            type="expense"
-            onDelete={() => onDelete(expense._id)}
-          />
-        ))}
+        {Array.isArray(transactions) && transactions.length > 0 ? (
+          transactions
+            .slice(0, 4)
+            .map((expense) => (
+              <TransactionInfoCard
+                key={expense._id || expense.id}
+                title={expense.category}
+                icon={expense.icon}
+                date={moment(expense.date).format("Do MMM YYYY")}
+                amount={expense.amount}
+                type="expense"
+                hideDeleteBtn
+              />
+            ))
+        ) : (
+          <div className="text-gray-400 text-center py-4">
+            No expenses found.
+          </div>
+        )}
       </div>
     </div>
   );
