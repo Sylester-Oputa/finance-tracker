@@ -13,11 +13,10 @@ const ExpenseList = ({ onDownload, onDelete, transactions }) => {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2">
+      <div>
         {Array.isArray(transactions) && transactions.length > 0 ? (
-          transactions
-            .slice(0, 4)
-            .map((expense) => (
+          transactions.slice(0, 4).map((expense) => (
+            <div className="grid grid-cols-1 md:grid-cols-2">
               <TransactionInfoCard
                 key={expense._id || expense.id}
                 title={expense.category}
@@ -27,7 +26,8 @@ const ExpenseList = ({ onDownload, onDelete, transactions }) => {
                 type="expense"
                 hideDeleteBtn
               />
-            ))
+            </div>
+          ))
         ) : (
           <div className="flex flex-col items-center justify-center h-full w-full py-8 text-gray-400">
             <svg
