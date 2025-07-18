@@ -14,6 +14,7 @@ import ExpenseTransactions from "../../components/Dashboard/ExpenseTransactions"
 import Last30DaysExpenses from "../../components/Dashboard/Last30DaysExpenses";
 import RecentIncomeWithChart from "../../components/Dashboard/RecentIncomeWithChart";
 import RecentIncome from "../../components/Dashboard/RecentIncome";
+import Loader from "../../components/Loader";
 
 const Home = () => {
   useUserAuth();
@@ -48,12 +49,15 @@ const Home = () => {
   if (loading || !dashboardData) {
     return (
       <DashboardLayout activeMenu="Dashboard">
-        <div className="flex justify-center items-center h-96">
-          {error ? error : "Loading..."}
-        </div>
+        {error ? (
+          <div className="text-center text-red-500">{error}</div>
+        ) : (
+          <Loader text="Loading Dashboard..." />
+        )}
       </DashboardLayout>
     );
   }
+
 
   return (
     <DashboardLayout activeMenu="Dashboard">
