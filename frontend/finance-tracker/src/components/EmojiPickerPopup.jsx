@@ -32,7 +32,7 @@ const EmojiPickerPopup = ({ icon, onSelect }) => {
           </button>
 
                   <EmojiPicker
-                      className="w-[200px] md:w-full"
+                      className="w-[150px] md:w-full"
             open={isOpen}
             onEmojiClick={(emoji) => onSelect(emoji?.imageUrl || "")}
           />
