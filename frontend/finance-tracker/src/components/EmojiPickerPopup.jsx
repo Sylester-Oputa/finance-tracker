@@ -13,11 +13,7 @@ const EmojiPickerPopup = ({ icon, onSelect }) => {
         onClick={() => setIsOpen(true)}
       >
         <div className="w-12 h-12 flex items-center justify-center text-2xl bg-blue-50 text-primary rounded-lg">
-          {icon ? (
-            <img src={icon} alt="Selected Emoji" className="w-12 h-12" />
-          ) : (
-            <LuImage />
-          )}
+          {icon ? <span className="text-3xl">{icon}</span> : <LuImage />}
         </div>
         <p className="">{icon ? "Change Icon" : "Pick Icon"}</p>
       </div>
@@ -34,7 +30,7 @@ const EmojiPickerPopup = ({ icon, onSelect }) => {
           <Picker
             data={data}
             onEmojiSelect={(emoji) => {
-              onSelect(emoji.imageUrl || emoji.native); // fallback to emoji character if no image
+              onSelect(emoji.native); // <-- This is the emoji character
               setIsOpen(false);
             }}
             theme="light"
