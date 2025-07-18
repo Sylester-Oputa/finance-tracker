@@ -45,3 +45,13 @@ A modern, full-stack web application that helps users seamlessly track their inc
 - ✅ Toast notifications and animations
 - ✅ Fully themed emoji picker
 - ✅ Secure login/signup with JWT
+
+---
+
+## 🌐 Live Demo
+
+Frontend hosted on **Vercel**  
+Backend hosted on **Render**
+
+🔗 [Frontend – Vercel](https://finance-tracker-nine-jade.vercel.app)  
+🔗 [Backend – Render](https://finance-tracker-r4fo.onrender.com)

@@ -13,7 +13,7 @@ const app = express();
 // Middleware to handle CORS
 app.use(
   cors({
-    origin: "https://finance-tracker-nine-jade.vercel.app", // Your frontend domain
+    origin: "*", // Your frontend domain
     credentials: true, // If you're using cookies or sessions
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
