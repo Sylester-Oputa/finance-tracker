@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import EmojiPicker from "emoji-picker-react";
+import Picker from "@emoji-mart/react";
+import data from "@emoji-mart/data";
 import { LuImage, LuX } from "react-icons/lu";
 
 const EmojiPickerPopup = ({ icon, onSelect }) => {
-  // This is a placeholder for the actual emoji picker logic
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -21,19 +21,26 @@ const EmojiPickerPopup = ({ icon, onSelect }) => {
         </div>
         <p className="">{icon ? "Change Icon" : "Pick Icon"}</p>
       </div>
+
       {isOpen && (
-        <div className=" relative">
+        <div className="relative z-50">
           <button
-            className="w-7 h-7 flex items-center justify-center bg-white border border-gray-200 rounded-full absolute -top-2 -right-2 z-10 cursor-pointer"
+            className="w-7 h-7 flex items-center justify-center bg-white border border-gray-200 rounded-full absolute -top-2 -right-2 z-50 cursor-pointer"
             onClick={() => setIsOpen(false)}
           >
             <LuX />
           </button>
 
-          <EmojiPicker
-            className="w-[100px] md:w-full"
-            open={isOpen}
-            onEmojiClick={(emoji) => onSelect(emoji?.imageUrl || "")}
+          <Picker
+            data={data}
+            onEmojiSelect={(emoji) => {
+              onSelect(emoji.imageUrl || emoji.native); // fallback to emoji character if no image
+              setIsOpen(false);
+            }}
+            theme="light"
+            previewPosition="none"
+            perLine={8}
+            maxFrequentRows={0}
           />
         </div>
       )}
