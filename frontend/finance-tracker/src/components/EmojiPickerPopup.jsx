@@ -33,7 +33,7 @@ const EmojiPickerPopup = ({ icon, onSelect }) => {
               onSelect(emoji.native); // <-- This is the emoji character
               setIsOpen(false);
             }}
-            theme="light"
+            theme="dark"
             previewPosition="none"
             perLine={8}
             maxFrequentRows={0}

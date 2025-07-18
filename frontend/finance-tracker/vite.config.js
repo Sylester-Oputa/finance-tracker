@@ -5,9 +5,12 @@ import react from "@vitejs/plugin-react";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  optimizeDeps: {
+    include: ["@emoji-mart/data", "@emoji-mart/react"]
+  },
   build: {
     rollupOptions: {
-      external: ['@emoji-mart/data']
+      external: []
     }
   }
 });
