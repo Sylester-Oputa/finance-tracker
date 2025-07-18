@@ -6,7 +6,7 @@ const Modal = ({ children, isOpen, onClose, title }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex justify-center items-center w-full h-full backdrop-blur-xs">
-      <div className="relative p-20 w-full max-w-2xl max-h-full">
+      <div className="relative p-4 md:p-20 w-full max-w-2xl max-h-full">
         {/* Modal content */}
         <div className="relative rounded-lg shadow-sm bg-[#FFFAE5]">
           {/* Modal header */}
