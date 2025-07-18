@@ -14,11 +14,7 @@ const EmojiPickerPopup = ({ icon, onSelect }) => {
       >
         <div className="w-12 h-12 flex items-center justify-center text-2xl bg-blue-50 text-primary rounded-lg">
           {icon ? (
-            <img
-              src={icon}
-              alt="Selected Emoji"
-              className="w-12 h-12"
-            />
+            <img src={icon} alt="Selected Emoji" className="w-12 h-12" />
           ) : (
             <LuImage />
           )}
@@ -27,12 +23,15 @@ const EmojiPickerPopup = ({ icon, onSelect }) => {
       </div>
       {isOpen && (
         <div className=" relative">
-          <button className="w-7 h-7 flex items-center justify-center bg-white border border-gray-200 rounded-full absolute -top-2 -right-2 z-10 cursor-pointer" onClick={() => setIsOpen(false)}>
+          <button
+            className="w-7 h-7 flex items-center justify-center bg-white border border-gray-200 rounded-full absolute -top-2 -right-2 z-10 cursor-pointer"
+            onClick={() => setIsOpen(false)}
+          >
             <LuX />
           </button>
 
-                  <EmojiPicker
-                      className="w-[150px] md:w-full"
+          <EmojiPicker
+            className="w-[100px] md:w-full"
             open={isOpen}
             onEmojiClick={(emoji) => onSelect(emoji?.imageUrl || "")}
           />
