@@ -1,5 +1,6 @@
 const xlsx = require('xlsx');
-const Income = require("../models/Income");
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
 
 // Add Income Source
 exports.addIncome = async (req, res) => {
@@ -13,13 +14,20 @@ exports.addIncome = async (req, res) => {
             return res.status(400).json({ message: "All fields are required" });
         }
 
-        const newIncome = new Income({
-            userId, icon, source, amount, date: new Date(date)
+        const newIncome = await prisma.income.create({
+            data: {
+                userId,
+                icon: icon || '💰',
+                source,
+                amount: parseFloat(amount),
+                currency: req.user.currency || 'USD',
+                date: new Date(date)
+            }
         });
 
-        await newIncome.save();
         res.status(200).json(newIncome);
     } catch (error) {
+        console.error('Error adding income:', error);
         res.status(500).json({ message: "Server Error" });
     }
 }
@@ -29,9 +37,13 @@ exports.getAllIncome = async (req, res) => {
     const userId = req.user.id;
 
     try {
-        const income = await Income.find({ userId }).sort({ date: -1 });
+        const income = await prisma.income.findMany({
+            where: { userId },
+            orderBy: { date: 'desc' }
+        });
         res.json(income);
     } catch (err) {
+        console.error('Error fetching income:', err);
         res.status(500).json({ message: "Server Error" });
     }
 };
@@ -39,9 +51,12 @@ exports.getAllIncome = async (req, res) => {
 // Delete Income Source
 exports.deleteIncome = async (req, res) => {
     try {
-        await Income.findByIdAndDelete(req.params.id);
+        await prisma.income.delete({
+            where: { id: parseInt(req.params.id) }
+        });
         res.json({ message: "Income deleted successfully." });
     } catch (err) {
+        console.error('Error deleting income:', err);
         res.status(500).json({ message: "Server Error" });
     }
 };
@@ -50,12 +65,16 @@ exports.deleteIncome = async (req, res) => {
 exports.downloadIncomeExcel = async (req, res) => {
     const userId = req.user.id;
     try {
-        const income = await Income.find({ userId }).sort({ date: -1 });
+        const income = await prisma.income.findMany({
+            where: { userId },
+            orderBy: { date: 'desc' }
+        });
 
         // Prepare data for Excel
         const data = income.map((item) => ({
             Source: item.source,
             Amount: item.amount,
+            Currency: item.currency,
             Date: item.date,
         }));
 
@@ -65,6 +84,7 @@ exports.downloadIncomeExcel = async (req, res) => {
         xlsx.writeFile(wb, 'income_details.xlsx');
         res.download('income_details.xlsx');
     } catch (err) {
+        console.error('Error downloading income excel:', err);
         res.status(500).json({ message: "Server Error" });
     }
 };

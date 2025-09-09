@@ -1,0 +1,134 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                            String     @id @default(uuid())
+  fullName                      String
+  email                         String     @unique
+  password                      String
+  profileImageUrl               String? // nullable
+  defaultCurrency               String? // user's preferred currency
+  status                        UserStatus @default(PENDING_VERIFICATION)
+  emailVerifiedAt               DateTime? // null = not verified, datetime = when verified
+  emailVerificationToken        String?    @db.VarChar(255)
+  emailVerificationTokenExpires DateTime?
+  passwordResetToken            String?
+  passwordResetTokenExpires     DateTime?
+  lastLoginAt                   DateTime?
+  deletedAt                     DateTime?
+  refreshToken                  String?    @db.VarChar(500)
+  refreshTokenExpiry            DateTime?
+  loginAttempts                 Int        @default(0)
+  lockedUntil                   DateTime?
+  createdAt                     DateTime   @default(now())
+  updatedAt                     DateTime   @updatedAt
+  incomes                       Income[]
+  expenses                      Expense[]
+  auditLogs                     AuditLog[]
+  sessions                      Session[]
+  budgets                       Budget[]
+  goals                         Goal[]
+  reminders                     Reminder[]
+}
+
+model Income {
+  id       Int      @id @default(autoincrement())
+  icon     String
+  source   String
+  amount   Float
+  currency String // currency code, e.g. 'USD', 'EUR'
+  date     DateTime
+  userId   String
+  user     User     @relation(fields: [userId], references: [id])
+}
+
+model Expense {
+  id       String   @id @default(uuid())
+  icon     String
+  category String
+  amount   Float
+  currency String // currency code, e.g. 'USD', 'EUR'
+  date     DateTime
+  userId   String
+  user     User     @relation(fields: [userId], references: [id])
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  action    String
+  userId    String?
+  details   Json?
+  createdAt DateTime @default(now())
+  user      User?    @relation(fields: [userId], references: [id])
+}
+
+model Session {
+  id         String   @id @default(uuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  token      String   @unique
+  createdAt  DateTime @default(now())
+  expiresAt  DateTime
+  deviceInfo String?
+  ipAddress  String?
+  revoked    Boolean  @default(false)
+}
+
+model Budget {
+  id        String   @id @default(uuid())
+  userId    String
+  category  String
+  amount    Float
+  period    String // e.g. 'monthly', 'weekly'
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Goal {
+  id          String    @id @default(uuid())
+  userId      String
+  name        String
+  target      Float
+  progress    Float     @default(0)
+  deadline    DateTime?
+  completed   Boolean   @default(false)
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  user        User      @relation(fields: [userId], references: [id])
+}
+
+model Reminder {
+  id        String   @id @default(uuid())
+  userId    String
+  title     String
+  dueDate   DateTime
+  amount    Float?
+  paid      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+// ===============================
+// ENUMS
+// ===============================
+enum UserStatus {
+  PENDING_VERIFICATION
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+  DELETED
+}
