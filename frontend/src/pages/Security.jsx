@@ -4,6 +4,8 @@ import DashboardLayout from '../components/layouts/DashboardLayout';
 import Input from '../components/Inputs/Input';
 import ConfirmationModal from '../components/ConfirmationModal';
 import InfoModal from '../components/InfoModal';
+import axiosInstance from '../utils/axiosInstance';
+import { API_PATHS } from '../utils/apiPaths';
 
 const Security = () => {
   const navigate = useNavigate();
@@ -48,19 +50,12 @@ const Security = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/auth/change-password`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
-        body: JSON.stringify({
-          currentPassword: passwordData.currentPassword,
-          newPassword: passwordData.newPassword
-        })
+      const response = await axiosInstance.put(API_PATHS.AUTH.CHANGE_PASSWORD ?? '/api/v1/auth/change-password', {
+        currentPassword: passwordData.currentPassword,
+        newPassword: passwordData.newPassword
       });
 
-      if (response.ok) {
+      if (response?.status === 200) {
         showModal('success', 'Success', 'Password changed successfully!');
         setPasswordData({
           currentPassword: '',
@@ -68,18 +63,7 @@ const Security = () => {
           confirmPassword: ''
         });
       } else {
-        let errorMsg = 'Failed to change password';
-        try {
-          const contentType = response.headers.get('content-type') || '';
-          if (contentType.includes('application/json')) {
-            const error = await response.json();
-            errorMsg = error.message || error.error || errorMsg;
-          } else {
-            const text = await response.text();
-            errorMsg = text || errorMsg;
-          }
-        } catch {}
-        showModal('error', 'Error', errorMsg);
+        showModal('error', 'Error', 'Failed to change password');
       }
     } catch (error) {
       console.error('Error changing password:', error);
@@ -92,30 +76,14 @@ const Security = () => {
   const handleDeleteAccount = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/auth/delete-account`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
-      });
+      const response = await axiosInstance.delete(API_PATHS.AUTH.DELETE_ACCOUNT ?? '/api/v1/auth/delete-account');
 
-      if (response.ok) {
+      if (response?.status === 200) {
         localStorage.clear();
         showModal('success', 'Account Deleted', 'Account deleted successfully');
         setTimeout(() => navigate('/login'), 2000);
       } else {
-        let errorMsg = 'Failed to delete account';
-        try {
-          const contentType = response.headers.get('content-type') || '';
-          if (contentType.includes('application/json')) {
-            const error = await response.json();
-            errorMsg = error.message || error.error || errorMsg;
-          } else {
-            const text = await response.text();
-            errorMsg = text || errorMsg;
-          }
-        } catch {}
-        showModal('error', 'Error', errorMsg);
+        showModal('error', 'Error', 'Failed to delete account');
       }
     } catch (error) {
       console.error('Error deleting account:', error);

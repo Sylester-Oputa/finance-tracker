@@ -1,4 +1,8 @@
-export const BASE_URL = "http://localhost:5500";
+export const BASE_URL = (import.meta && import.meta.env && import.meta.env.VITE_API_BASE_URL)
+  ? import.meta.env.VITE_API_BASE_URL
+  : (typeof window !== 'undefined' && window.ENV && window.ENV.VITE_API_BASE_URL)
+    ? window.ENV.VITE_API_BASE_URL
+    : "https://finance-tracker-1l5m.vercel.app/";
 
 // API Paths
 export const API_PATHS = {
@@ -14,6 +18,8 @@ export const API_PATHS = {
     LOGOUT: "/api/v1/auth/logout",
     LOGOUT_ALL: "/api/v1/auth/logout-all",
     UPDATE_PROFILE: "/api/v1/auth/update-profile",
+  PROFILE: "/api/v1/auth/profile",
+  CHANGE_PASSWORD: "/api/v1/auth/change-password",
     DELETE_ACCOUNT: "/api/v1/auth/delete-account",
   },
   DASHBOARD: {

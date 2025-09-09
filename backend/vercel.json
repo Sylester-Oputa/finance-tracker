@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "server.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "/server.js" }
+  ],
+  "env": {
+    "NPM_CONFIG_LEGACY_PEER_DEPS": "true"
+  }
+}

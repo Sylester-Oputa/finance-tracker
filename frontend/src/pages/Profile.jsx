@@ -8,6 +8,8 @@ import CurrencySelector from '../components/Inputs/CurrencySelector';
 import Input from '../components/Inputs/Input';
 import InfoModal from '../components/InfoModal';
 import uploadImage from '../utils/uploadImage';
+import axiosInstance from '../utils/axiosInstance';
+import { API_PATHS } from '../utils/apiPaths';
 
 const Profile = () => {
   const { user, updateUser } = useContext(UserContext);
@@ -52,35 +54,14 @@ const Profile = () => {
     try {
       const { imageUrl } = await uploadImage(file);
       
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/auth/profile`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
-        body: JSON.stringify({
-          profileImageUrl: imageUrl
-        })
-      });
+      const response = await axiosInstance.put(API_PATHS.AUTH.PROFILE ?? '/api/v1/auth/profile', { profileImageUrl: imageUrl });
 
-      if (response.ok) {
-        const contentType = response.headers.get('content-type') || '';
-        const updatedUser = contentType.includes('application/json') ? await response.json() : { user };
-        updateUser(updatedUser.user);
+      if (response?.status === 200) {
+        const updatedUser = response.data;
+        updateUser(updatedUser.user || updatedUser);
         showModal('success', 'Success', 'Profile image updated successfully!');
       } else {
-        let errorMsg = 'Failed to update profile image';
-        try {
-          const contentType = response.headers.get('content-type') || '';
-          if (contentType.includes('application/json')) {
-            const error = await response.json();
-            errorMsg = error.message || error.error || errorMsg;
-          } else {
-            const text = await response.text();
-            errorMsg = text || errorMsg;
-          }
-        } catch {}
-        showModal('error', 'Error', errorMsg);
+        showModal('error', 'Error', 'Failed to update profile image');
       }
     } catch (error) {
       console.error('Error updating profile image:', error);
@@ -93,35 +74,14 @@ const Profile = () => {
   const handleImageDelete = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/auth/profile`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
-        body: JSON.stringify({
-          profileImageUrl: null
-        })
-      });
+      const response = await axiosInstance.put(API_PATHS.AUTH.PROFILE ?? '/api/v1/auth/profile', { profileImageUrl: null });
 
-      if (response.ok) {
-        const contentType = response.headers.get('content-type') || '';
-        const updatedUser = contentType.includes('application/json') ? await response.json() : { user };
-        updateUser(updatedUser.user);
+      if (response?.status === 200) {
+        const updatedUser = response.data;
+        updateUser(updatedUser.user || updatedUser);
         showModal('success', 'Success', 'Profile image deleted successfully!');
       } else {
-        let errorMsg = 'Failed to delete profile image';
-        try {
-          const contentType = response.headers.get('content-type') || '';
-          if (contentType.includes('application/json')) {
-            const error = await response.json();
-            errorMsg = error.message || error.error || errorMsg;
-          } else {
-            const text = await response.text();
-            errorMsg = text || errorMsg;
-          }
-        } catch {}
-        showModal('error', 'Error', errorMsg);
+        showModal('error', 'Error', 'Failed to delete profile image');
       }
     } catch (error) {
       console.error('Error deleting profile image:', error);
@@ -136,35 +96,16 @@ const Profile = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/auth/profile`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
-        body: JSON.stringify(formData)
-      });
+      const response = await axiosInstance.put(API_PATHS.AUTH.PROFILE ?? '/api/v1/auth/profile', formData);
 
-      if (response.ok) {
-        const contentType = response.headers.get('content-type') || '';
-        const updatedUser = contentType.includes('application/json') ? await response.json() : { user };
-        updateUser(updatedUser.user);
+      if (response?.status === 200) {
+        const updatedUser = response.data;
+        updateUser(updatedUser.user || updatedUser);
         // Update currency across the app when defaultCurrency changes
-        updateCurrency(updatedUser?.user?.defaultCurrency || formData.defaultCurrency);
+        updateCurrency((updatedUser?.user?.defaultCurrency) || updatedUser?.defaultCurrency || formData.defaultCurrency);
         showModal('success', 'Success', 'Profile updated successfully!');
       } else {
-        let errorMsg = 'Failed to update profile';
-        try {
-          const contentType = response.headers.get('content-type') || '';
-          if (contentType.includes('application/json')) {
-            const error = await response.json();
-            errorMsg = error.message || error.error || errorMsg;
-          } else {
-            const text = await response.text();
-            errorMsg = text || errorMsg;
-          }
-        } catch {}
-        showModal('error', 'Error', errorMsg);
+        showModal('error', 'Error', 'Failed to update profile');
       }
     } catch (error) {
       console.error('Error updating profile:', error);

@@ -46,5 +46,10 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // Start scheduled cron jobs for account inactivity/deletion
 require("./utils/cronTasks");
 
+// Export the app for serverless (Vercel) and start server only when run directly
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+if (require.main === module) {
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+}
+
+module.exports = app;
