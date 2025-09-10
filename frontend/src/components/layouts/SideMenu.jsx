@@ -10,6 +10,7 @@ const SideMenu = ({ activeMenu, showDate = false }) => {
   const { user, clearUser } = useContext(UserContext);
   const { isMobile, isTablet } = useResponsive();
   const navigate = useNavigate();
+  const year = new Date().getFullYear();
 
   const handleClick = (route) => {
     if (route === "logout") {
@@ -164,7 +165,7 @@ const SideMenu = ({ activeMenu, showDate = false }) => {
             className="text-xs transition-colors"
             style={{ color: 'var(--color-textSecondary)' }}
           >
-            © 2025 All rights reserved
+            © {year} All rights reserved
           </p>
           <p 
             className="text-[10px] mt-1 transition-colors"

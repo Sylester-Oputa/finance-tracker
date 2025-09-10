@@ -37,6 +37,7 @@ async function sendNotificationEmail(to, subject, html) {
 
 // Base email template with Finance Tracker theming
 function getBaseTemplate(title, content) {
+  const year = new Date().getFullYear();
   return `
     <!DOCTYPE html>
     <html>
@@ -273,7 +274,7 @@ function getBaseTemplate(title, content) {
             <p class="luka-tech">
               <span class="luka">Luka</span><span class="tech">Tech</span>
             </p>
-            <p>&copy; 2025 All rights reserved</p>
+            <p>&copy; ${year} All rights reserved</p>
             <p>Professional Financial Management Solutions</p>
             <p style="margin-top: 12px; font-size: 12px; color: #9CA3AF;">
               This email was sent from Finance Tracker. Please do not reply to this email.
