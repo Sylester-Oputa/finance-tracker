@@ -16,10 +16,17 @@ const app = express();
 // Middleware to handle CORS
 app.use(
   cors({
-    origin: "*", // Your frontend domain
-    credentials: true, // If you're using cookies or sessions
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    // Reflect request origin (enables credentials with dynamic origins)
+    origin: true,
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "X-Requested-With",
+      "Accept",
+      "Origin",
+    ],
   })
 );
 
