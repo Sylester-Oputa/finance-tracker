@@ -1,8 +1,6 @@
-export const BASE_URL = (import.meta && import.meta.env && import.meta.env.VITE_API_BASE_URL)
-  ? import.meta.env.VITE_API_BASE_URL
-  : (typeof window !== 'undefined' && window.ENV && window.ENV.VITE_API_BASE_URL)
-    ? window.ENV.VITE_API_BASE_URL
-    : "https://finance-tracker-1l5m.vercel.app/";
+export const BASE_URL = (
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:5500"
+).replace(/\/+$/, "");
 
 // API Paths
 export const API_PATHS = {
@@ -18,8 +16,8 @@ export const API_PATHS = {
     LOGOUT: "/api/v1/auth/logout",
     LOGOUT_ALL: "/api/v1/auth/logout-all",
     UPDATE_PROFILE: "/api/v1/auth/update-profile",
-  PROFILE: "/api/v1/auth/profile",
-  CHANGE_PASSWORD: "/api/v1/auth/change-password",
+    PROFILE: "/api/v1/auth/profile",
+    CHANGE_PASSWORD: "/api/v1/auth/change-password",
     DELETE_ACCOUNT: "/api/v1/auth/delete-account",
   },
   DASHBOARD: {
@@ -36,7 +34,8 @@ export const API_PATHS = {
     DELETE_GOAL: (id) => `/api/v1/dashboard/goals/${id}`,
     GOAL_PROGRESS: "/api/v1/dashboard/goals/progress",
     ADD_GOAL_PROGRESS: (id) => `/api/v1/dashboard/goals/${id}/add-progress`,
-    REMOVE_GOAL_PROGRESS: (id) => `/api/v1/dashboard/goals/${id}/remove-progress`,
+    REMOVE_GOAL_PROGRESS: (id) =>
+      `/api/v1/dashboard/goals/${id}/remove-progress`,
     REMINDERS: "/api/v1/dashboard/reminders",
     CREATE_REMINDER: "/api/v1/dashboard/reminders",
     UPDATE_REMINDER: (id) => `/api/v1/dashboard/reminders/${id}`,
@@ -62,4 +61,6 @@ export const API_PATHS = {
   IMAGE: {
     UPLOAD_IMAGE: "/api/v1/auth/upload-image",
   },
+  // Health check (used to warm up serverless/cold instances)
+  HEALTH: "/api/v1/health",
 };

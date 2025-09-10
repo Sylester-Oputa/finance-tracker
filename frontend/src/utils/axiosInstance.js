@@ -3,7 +3,7 @@ import { BASE_URL, API_PATHS } from "./apiPaths";
 
 const axiosInstance = axios.create({
     baseURL: BASE_URL,
-    timeout: 10000,
+    timeout: 60000, // 60s for cold starts
     headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -26,11 +26,9 @@ axiosInstance.interceptors.request.use(
 
 // Response Interceptor with Token Refresh
 axiosInstance.interceptors.response.use(
-    (response) => {
-        return response;
-    },
+    (response) => response,
     async (error) => {
-        const original = error.config;
+        const original = error.config || {};
 
         // Handle 401 errors (token expired)
         if (error.response?.status === 401 && !original._retry) {
@@ -48,6 +46,7 @@ axiosInstance.interceptors.response.use(
                     localStorage.setItem("refreshToken", newRefreshToken);
 
                     // Retry original request with new token
+                    original.headers = original.headers || {};
                     original.headers.Authorization = `Bearer ${accessToken}`;
                     return axiosInstance(original);
                 } catch (refreshError) {
@@ -63,7 +62,22 @@ axiosInstance.interceptors.response.use(
             }
         }
 
-        // Handle other errors
+        // One-time retry on timeout (cold start) after a short warm-up ping
+        if (error.code === "ECONNABORTED" && !original?._timeoutRetry) {
+            try {
+                original._timeoutRetry = true;
+                await axios.get(`${BASE_URL}${API_PATHS.HEALTH}`, {
+                    timeout: 3000,
+                    params: { t: Date.now() },
+                }).catch(() => {});
+                // Extend timeout for the retry
+                original.timeout = Math.max(original.timeout || 0, 60000);
+                return axiosInstance(original);
+            } catch (_) {
+                // fall-through to rejection
+            }
+        }
+
         if (error.response?.status === 500) {
             console.error("Server error. Please try again later.");
         }
