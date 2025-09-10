@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import CARD_2 from "../../assets/images/card2.jpg";
 import { LuTrendingUpDown } from "react-icons/lu";
 import ThemeToggle from "../ThemeToggle";
@@ -70,7 +70,51 @@ const AuthLayout = ({ children }) => {
 
 export default AuthLayout;
 
+// Currency symbols to cycle through
+const CURRENCY_SYMBOLS = [
+  "$", // USD
+  "€", // EUR
+  "£", // GBP
+  "¥", // JPY
+  "₦", // NGN
+  "C$", // CAD
+  "A$", // AUD
+  "CHF", // CHF
+  "¥", // CNY
+  "₹", // INR
+  "₽", // RUB
+  "R", // ZAR
+  "R$", // BRL
+  "Mex$", // MXN
+  "S$", // SGD
+  "HK$", // HKD
+  "₩", // KRW
+  "kr", // SEK
+  "kr", // NOK
+  "kr", // DKK
+  "₺", // TRY
+  "د.إ", // AED
+  "﷼", // SAR
+  "KSh", // KES
+  "₵", // GHS
+  "₨", // PKR
+  "฿", // THB
+  "Rp", // IDR
+  "RM", // MYR
+  "ARS$", // ARS
+];
+
 const StatsInfoCard = ({ icon, label, value }) => {
+  const [idx, setIdx] = useState(0);
+  const total = useMemo(() => CURRENCY_SYMBOLS.length, []);
+
+  useEffect(() => {
+    const t = setInterval(() => {
+      setIdx((i) => (i + 1) % total);
+    }, 1600);
+    return () => clearInterval(t);
+  }, [total]);
+
   return (
     <div
       className="flex gap-6 p-4 rounded-xl shadow-md border z-10 transition-colors"
@@ -96,12 +140,23 @@ const StatsInfoCard = ({ icon, label, value }) => {
         >
           {label}
         </h6>
-        <span
-          className="text-[20px] font-semibold transition-colors"
-          style={{ color: "var(--color-textPrimary)" }}
-        >
-          ₦{value}
-        </span>
+        {/* Ticker: symbol and value together with a single space, scrolling as one unit */}
+        <div className="overflow-hidden h-6" aria-hidden="true">
+          <div
+            className="transition-transform duration-500 ease-out"
+            style={{ transform: `translateY(-${idx * 24}px)` }}
+          >
+            {CURRENCY_SYMBOLS.map((sym, i) => (
+              <div
+                key={`${sym}-${i}`}
+                className="h-6 leading-6 text-[20px] font-semibold transition-colors whitespace-nowrap"
+                style={{ color: "var(--color-textPrimary)" }}
+              >
+                {sym}{value}
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

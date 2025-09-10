@@ -47,7 +47,27 @@ export const getCurrencySymbol = (currency = 'USD') => {
     'AUD': 'A$',
     'CHF': 'CHF ',
     'CNY': '¥',
-    'INR': '₹'
+    'INR': '₹',
+    'RUB': "₽", // Russian Ruble
+    'ZAR': "R", // South African Rand
+    'BRL': "R$", // Brazilian Real
+    'MXN': "Mex$", // Mexican Peso
+    'SGD': "S$", // Singapore Dollar
+    'HKD': "HK$", // Hong Kong Dollar
+    'KRW': "₩", // South Korean Won
+    'SEK': "kr", // Swedish Krona
+    'NOK': "kr", // Norwegian Krone
+    'DKK': "kr", // Danish Krone
+    'TRY': "₺", // Turkish Lira
+    'AED': "د.إ", // UAE Dirham
+    'SAR': "﷼", // Saudi Riyal
+    'KES': "KSh", // Kenyan Shilling
+    'GHS': "₵", // Ghanaian Cedi
+    'PKR': "₨", // Pakistani Rupee
+    'THB': "฿", // Thai Baht
+    'IDR': "Rp", // Indonesian Rupiah
+    'MYR': "RM", // Malaysian Ringgit
+    'ARS': "ARS$", // Argentine Peso
   };
   
   return currencySymbols[currency] || `${currency} `;
