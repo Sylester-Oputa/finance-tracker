@@ -8,12 +8,12 @@ A modern, full-stack web application that empowers users to take complete contro
 
 ## 🌟 **Live Demo**
 
-🔗 **[Finance Tracker - Live Application](https://finance-tracker-nine-jade.vercel.app)**  
-🔗 **[API Documentation](https://finance-tracker-r4fo.onrender.com)**
+🔗 **[Finance Tracker - Live Application](https://finance-tracker-blue-nine.vercel.app)**  
+🔗 **[API Documentation](https://www.postman.com/silive/my-workspace/collection/sxsq02i/expense-tracker?action=share&creator=30996501)**
 
 **Demo Credentials:**
 - Email: `soputa42@gmail.com`
-- Password: `Sylvester2003+`
+- Password: `Sylvester2003*`
 
 ---
 
