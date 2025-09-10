@@ -447,28 +447,12 @@ EMAIL_PORT=587
 
 ---
 
-## 📄 **License**
-
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
-
----
-
 ## 👥 **Team**
 
 ### 🚀 **LukaTech Development Team**
 - **Lead Developer**: [Sylester Oputa](https://github.com/Sylester-Oputa)
 - **UI/UX Designer**: LukaTech Design Team
 - **Security Consultant**: LukaTech Security Team
-
----
-
-## 📞 **Support**
-
-### 🆘 **Get Help**
-- 📧 **Email**: sylvesteroputa366@gmail.com
-- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/Sylester-Oputa/finance-tracker/issues)
-- 💬 **Feature Requests**: [GitHub Discussions](https://github.com/Sylester-Oputa/finance-tracker/discussions)
-- 📖 **Documentation**: [Wiki](https://github.com/Sylester-Oputa/finance-tracker/wiki)
 
 ---
 
