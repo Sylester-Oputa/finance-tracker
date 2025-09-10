@@ -450,7 +450,7 @@ EMAIL_PORT=587
 ## 👥 **Team**
 
 ### 🚀 **LukaTech Development Team**
-- **Lead Developer**: [Sylester Oputa](https://github.com/Sylester-Oputa)
+- **Lead Developer**: [Sylvester Oputa](https://github.com/Sylester-Oputa)
 - **UI/UX Designer**: LukaTech Design Team
 - **Security Consultant**: LukaTech Security Team
 
