@@ -385,82 +385,6 @@ npm run dev
 
 ---
 
-## 📚 **API Documentation**
-
-### 🔐 **Authentication Endpoints**
-```
-POST   /api/v1/auth/register          # User registration
-POST   /api/v1/auth/login             # User login
-POST   /api/v1/auth/logout            # Single device logout
-POST   /api/v1/auth/logout-all        # All devices logout
-POST   /api/v1/auth/refresh-token     # Token refresh
-GET    /api/v1/auth/verify-email/:token # Email verification
-POST   /api/v1/auth/forgot-password   # Password reset request
-POST   /api/v1/auth/reset-password    # Password reset confirmation
-GET    /api/v1/auth/getUser          # Get user profile
-PUT    /api/v1/auth/profile          # Update user profile
-```
-
-### 💰 **Financial Management Endpoints**
-```
-# Dashboard
-GET    /api/v1/dashboard             # Dashboard overview data
-
-# Income Management
-GET    /api/v1/income/get           # Get all income records
-POST   /api/v1/income/add           # Add new income
-DELETE /api/v1/income/:id           # Delete income record
-GET    /api/v1/income/downloadexcel # Export income to Excel
-
-# Expense Management
-GET    /api/v1/expense/get          # Get all expense records
-POST   /api/v1/expense/add          # Add new expense
-DELETE /api/v1/expense/:id          # Delete expense record
-GET    /api/v1/expense/downloadexcel # Export expenses to Excel
-
-# Budget Management
-GET    /api/v1/dashboard/budgets          # Get all budgets
-POST   /api/v1/dashboard/budgets          # Create new budget
-PUT    /api/v1/dashboard/budgets/:id      # Update budget
-DELETE /api/v1/dashboard/budgets/:id      # Delete budget
-GET    /api/v1/dashboard/budgets/status   # Get budget status
-GET    /api/v1/dashboard/budgets/analytics # Get budget analytics
-
-# Goal Management
-GET    /api/v1/dashboard/goals            # Get all goals
-POST   /api/v1/dashboard/goals            # Create new goal
-PUT    /api/v1/dashboard/goals/:id        # Update goal
-DELETE /api/v1/dashboard/goals/:id        # Delete goal
-POST   /api/v1/dashboard/goals/:id/progress # Add progress to goal
-```
-
----
-
-## 🧪 **Testing**
-
-### 🔍 **Testing Strategy**
-```bash
-# Frontend Testing
-cd frontend
-npm run test           # Run unit tests
-npm run test:coverage  # Coverage report
-npm run test:e2e      # End-to-end tests
-
-# Backend Testing
-cd backend
-npm run test          # Run API tests
-npm run test:integration # Integration tests
-npm run test:security    # Security tests
-```
-
-### 📊 **Test Coverage**
-- **Frontend**: 85%+ component coverage
-- **Backend**: 90%+ API endpoint coverage
-- **Integration**: Complete user journey testing
-- **Security**: Authentication and authorization testing
-
----
-
 ## 🚀 **Deployment**
 
 ### 🌐 **Production Deployment**
@@ -541,17 +465,10 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 ## 📞 **Support**
 
 ### 🆘 **Get Help**
-- 📧 **Email**: support@lukatech.com
+- 📧 **Email**: sylvesteroputa366@gmail.com
 - 🐛 **Bug Reports**: [GitHub Issues](https://github.com/Sylester-Oputa/finance-tracker/issues)
 - 💬 **Feature Requests**: [GitHub Discussions](https://github.com/Sylester-Oputa/finance-tracker/discussions)
 - 📖 **Documentation**: [Wiki](https://github.com/Sylester-Oputa/finance-tracker/wiki)
-
-### 🏆 **Acknowledgments**
-- **Prisma Team** for excellent ORM tools
-- **Vercel** for seamless frontend hosting
-- **Recharts** for beautiful data visualization
-- **Tailwind CSS** for utility-first styling
-- **React Team** for the amazing framework
 
 ---
 
