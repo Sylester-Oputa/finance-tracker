@@ -13,6 +13,9 @@ const healthRoutes = require("./routes/healthRoutes");
 
 const app = express();
 
+// Trust proxy (required for Render/Vercel/Railway to read X-Forwarded-For headers)
+app.set("trust proxy", 1);
+
 // Middleware to handle CORS
 app.use(
   cors({
