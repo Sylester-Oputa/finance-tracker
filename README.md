@@ -13,7 +13,7 @@ A modern, full-stack web application that empowers users to take complete contro
 
 **Demo Credentials:**
 - Email: `soputa42@gmail.com`
-- Password: `Sylvester2003*`
+- Password: `1234567890`
 
 ---
 
